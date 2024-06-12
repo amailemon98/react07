@@ -3,7 +3,7 @@ import { DarkThemeContext } from '../../context/DarkThemeContext'
 
 const Footer = () => {
   const darkTheme = useContext(DarkThemeContext);
-  console.log(darkTheme);
+  // console.log(darkTheme);
 
   return (
     <div style={{ 

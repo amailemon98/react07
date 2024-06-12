@@ -13,6 +13,8 @@ import MakeupLayout from './layouts/MakeupLayout';
 import Makeup from './routes/Makeup';
 import MakeupDetail from './routes/MakeupDetail';
 import MakeupReviews from './routes/MakeupReviews';
+import Board from './routes/Board';
+import Count from './routes/Count';
 
 // 3. 
 function App() { 
@@ -29,6 +31,9 @@ function App() {
               */}
               <Route path="/"  element={<Home />} />
               <Route path="/home"  element={<Home />} />
+
+              <Route path="/board"  element={<Board />} />
+              <Route path="/count"  element={<Count />} />
               {/* 
                 localhost:3000/products
                 localhost:3000/products/:id

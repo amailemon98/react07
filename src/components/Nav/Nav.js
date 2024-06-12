@@ -36,13 +36,13 @@ import './Nav.css'
 const Nav = () => {
   const [ menuNum , setMenuNum ] = useState(0);
 
-  const menu = [ "home", "about", "products", "profile"]
+  const menu = [ "home", "board", "makeup", "about", "products", "profile"]
   return (
     <nav className='lnb'>
       <ul>
         {
             menu.map((item, index)=>(
-              <li>
+              <li key={index}>
                 <NavLink to={`${item}`} onClick={ ()=>setMenuNum(index)}                     
                 >{ item }</NavLink>
               </li>
