@@ -2,34 +2,19 @@
 import React, { useState, useEffect } from 'react'
 import {format} from 'date-fns'
 
-const data = [
-  {
-    id: 1,
-    title: "들어갈 제목",
-    body: "들어갈 내용",
-    datetime : "2024.06.12"
-  },
-  {
-    id: 2,
-    title: "html",
-    body: "하이퍼 텍스트 마크업 랭기지",
-    datetime : "2024.06.12"
-  },
-  {
-    id: 3,
-    title: "css",
-    body: "cascading style sheet",
-    datetime : "2024.06.12"
-  },
-  {
-    id: 4,
-    title: "javascript",
-    body: "동적인 데이터 처리를 하기 위한 적응력이 높은 frontend 언어",
-    datetime : "2024.06.12"
-  }
-]
+// context.js로 한 곳에서 데이터 처리
+//-1. BoardLayout.js
+// 0. 목록보기 /board
+// 1. 글쓰기 버튼을 클릭하면 /board/write_board => 글작성 후 저장 => 목록보기
+// 2. 수정 버튼 클릭 /board/edit_board/:id => 수정 후 저장 클릭 => 목록보기
+
+
 
 const Board = () => {
+  // 맨 처음 데이터를 역순으로 만든다.
+  // 맨 처음 한번 역순으로 해놓기
+  data.sort((prev, next) => next.id - prev.id); //desc하기 위해서 sort한다. sort는 요소가 두가지 있다. //원본이 바뀌어서 주의해야함
+
   const [posts, setPosts] = useState(data); //data 초기화는 꼭 해야함!
 
   const [title, setTitle] = useState();
@@ -47,10 +32,6 @@ const Board = () => {
   // let maxId = Math.max( ...(posts.map(item => item.id)) ) 
   
 
-  useEffect(() => {
-    // 맨 처음 한번 역순으로 해놓기
-    posts.sort((prev, next) => next.id - prev.id); //desc하기 위해서 sort한다. sort는 요소가 두가지 있다. //원본이 바뀌어서 주의해야함
-  }, [])
 
 
   const addPostHandle = (maxId, title, body) => {
@@ -65,6 +46,9 @@ const Board = () => {
 
     // posts = [newPost, ...posts];
     // setPosts(posts => posts=posts.push(newPost))
+
+    setTitle('');
+    setBody('');
   }
 
 
@@ -143,13 +127,18 @@ const Board = () => {
   }
   const onSearchChangeHandle = (ev) => { // props의 문제 예전의 나와 새로운 나를 검색하면서 구분 못해서 한개 더 생긴다. key값을 줌으로써 해결 가능
     // 지울때와 등록할때 둘다 오류가 생길 수 있다.
-    ev.preventDefault();
+    // ev.preventDefault();
     console.log(search);
     setSearch(ev.target.value)
 
+  }
+
+  useEffect(() => {
+
     const filter = posts.filter(post => post.title.includes(search) || post.body.includes(search))
     setSearchPosts(filter)
-  }
+    
+  }, [search, posts])//search나 posts가 갱신될때 실행
 
   return (
     <div>
@@ -203,20 +192,7 @@ const Board = () => {
       }
       <div>
         {
-          search !== null && searchPosts.map((post)=>( //posts의 길이가 있으면 실행! 이렇게 하면 에러률을 낮출 수 있다.
-            <div key={post.id}>
-              <h2>{post.id} {post.title}</h2>
-              <p>{post.body}</p>
-              <p>{post.datetime}</p>
-              <p>
-                <button onClick={()=>deleteHandle(post.id)}>삭제</button>
-                <button onClick={()=>updateHandle(post.id)}>수정</button>
-              </p>
-            </div>
-          ))
-        }
-        {
-          !search.length && posts.length && posts.map((post)=>( //posts의 길이가 있으면 실행! 이렇게 하면 에러률을 낮출 수 있다.
+          posts.length && searchPosts.map((post)=>( //posts의 길이가 있으면 실행! 이렇게 하면 에러률을 낮출 수 있다.
             <div key={post.id}>
               <h2>{post.id} {post.title}</h2>
               <p>{post.body}</p>

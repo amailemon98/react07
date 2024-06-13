@@ -13,8 +13,14 @@ import MakeupLayout from './layouts/MakeupLayout';
 import Makeup from './routes/Makeup';
 import MakeupDetail from './routes/MakeupDetail';
 import MakeupReviews from './routes/MakeupReviews';
-import Board from './routes/Board';
+// import Board from './routes/Board';
+import Board from './routes/board/Board';
 import Count from './routes/Count';
+import { BoardContextProvider } from './context/BoardContext';
+import BoardLayout from './layouts/BoardLayout';
+import EditBoard from './routes/board/EditBoard';
+import WriteBoard from './routes/board/WriteBoard';
+import Counter from './routes/useReducer/Counter';
 
 // 3. 
 function App() { 
@@ -32,8 +38,9 @@ function App() {
               <Route path="/"  element={<Home />} />
               <Route path="/home"  element={<Home />} />
 
-              <Route path="/board"  element={<Board />} />
-              <Route path="/count"  element={<Count />} />
+              <Route path="/counter"  element={<Counter />} />
+              {/* <Route path="/board"  element={<Board />} /> */}
+              {/* <Route path="/count"  element={<Count />} /> */}
               {/* 
                 localhost:3000/products
                 localhost:3000/products/:id
@@ -55,6 +62,16 @@ function App() {
                 <Route index element={<Makeup />} />
                 <Route path=':id' element={<MakeupDetail />} />
                 <Route path='reviews' element={<MakeupReviews />} />
+              </Route>
+
+              <Route path='board' element={
+                <BoardContextProvider>
+                  <BoardLayout />
+                </BoardContextProvider>
+              }>
+                <Route index element={<Board />} />
+                <Route path='edit_board' element={<EditBoard />} />
+                <Route path='write_board' element={<WriteBoard />} />
               </Route>
 
 
