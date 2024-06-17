@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useMakeupContext } from '../context/MakeupContextReducer';
+import { useMakeupContext } from '../context/MakeupContext';
 
 //localhost:3000/:id
 const MakeupDetail = () => {
     const {id} = useParams()
-    const {findResult, state, setId} = useMakeupContext();
+    const {findResult, isPending, setId} = useMakeupContext();
 
     useEffect(()=>{
       setId(id);
@@ -13,10 +13,10 @@ const MakeupDetail = () => {
     console.log(findResult);
   return (
     <div>
-      <h2>MakeupDetail {state.loading ? "Loading..." : id} </h2>
+      <h2>MakeupDetail {isPending ? "Loading..." : id} </h2>
       <p>
         {
-          !state.loading && JSON.stringify(findResult)
+          !isPending && JSON.stringify(findResult)
         }
       </p>
     </div>

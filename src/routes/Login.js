@@ -1,9 +1,12 @@
-import { useState } from "react";
-
+import { useState, useRef } from "react";
+// useId 라는 것도 새로 나옴
 
 function Login() { 
   const [user_email, setEmail] = useState('');
   const [user_pwd, setUserPwd] = useState('');
+
+  const emailRef = useRef();
+  const pwdRef = useRef();
 
   // const emailValidate = (e) => {
   //   setEmail(e.target.value);
@@ -31,21 +34,42 @@ function Login() {
 
       //  document.querySelector('#user_email').value = ''
       //  location.href='/' => useNavigate()
-      setEmail('')
-      setUserPwd('')
+
+      // setEmail('')
+      // setUserPwd('')
+      emailRef.current.value = ''; //current는 꼭 써야 한다.
+      pwdRef.current.value = ''; //current는 꼭 써야 한다.
+
+      emailRef.current.focus();
       return user; 
+  }
+
+  const onEmailHandle = () => {
+    setEmail(emailRef.current.value);
+  }
+
+  const onPwdHandle = () => {
+    setUserPwd(pwdRef.current.value);
   }
 
   return (
     <form onSubmit={ e=> e.preventDefault() }>
         <div>
              <label htmlFor="user_email">userEmail</label>
-             <input type="text" onInput={(e)=>setEmail(e.target.value)} id="user_email" value={user_email}/>
+             <input type="text"
+                    ref={emailRef}
+                    // onInput={(e)=>setEmail(e.target.value)} id="user_email" value={user_email}
+                    onInput={onEmailHandle} id="user_email" value={user_email}
+             />
              {/* <input type="text" onInput={(e)=>emailValidate(e)} id="user_email" value={user_email}/> */}
         </div>
         <div>
             <label htmlFor="user_pwd">userPwd</label>
-            <input type="password" onInput={(e)=>setUserPwd(e.target.value)} id="user_pwd" value={user_pwd} />
+            <input type="password"
+                   ref={pwdRef}
+                  //  onInput={(e)=>setUserPwd(e.target.value)} id="user_pwd" value={user_pwd} 
+                   onInput={onPwdHandle} id="user_pwd" value={user_pwd} 
+            />
             {/* <input type="password" onInput={(e)=>passwordValidate(e)} id="user_pwd" value={user_pwd} /> */}
         </div>
         <button onClick={ createUser}> 로그인 </button>

@@ -8,7 +8,7 @@ import StarRatingLayer from './components/StarRating/StarRatingLayer';
 import SidebarLayout from './components/Sidebar/SidebarLayout';
 import { NavLink, Outlet, Route, Routes } from 'react-router-dom';
 import ProductsLayout from './layouts/ProductsLayout';
-import { MakeupContextProvider } from './context/MakeupContext';
+import { MakeupContextProvider } from './context/MakeupContextReducer';
 import MakeupLayout from './layouts/MakeupLayout';
 import Makeup from './routes/Makeup';
 import MakeupDetail from './routes/MakeupDetail';
@@ -21,6 +21,9 @@ import BoardLayout from './layouts/BoardLayout';
 import EditBoard from './routes/board/EditBoard';
 import WriteBoard from './routes/board/WriteBoard';
 import Counter from './routes/useReducer/Counter';
+import FetchReducer from './routes/useReducer/FetchReducer'; // Post로 export해서 가져와서 FetchReducer로 이름을 변경하여 사용
+import VideoPlayer from './routes/VideoPlayer';
+import InputRef from './routes/InputRef';
 
 // 3. 
 function App() { 
@@ -38,7 +41,10 @@ function App() {
               <Route path="/"  element={<Home />} />
               <Route path="/home"  element={<Home />} />
 
+              <Route path="/input"  element={<InputRef />} />
+              <Route path="/video"  element={<VideoPlayer />} />
               <Route path="/counter"  element={<Counter />} />
+              <Route path="/fetch"  element={<FetchReducer />} />
               {/* <Route path="/board"  element={<Board />} /> */}
               {/* <Route path="/count"  element={<Count />} /> */}
               {/* 

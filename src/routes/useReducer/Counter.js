@@ -1,3 +1,4 @@
+// 원본
 import React, { useReducer, useState } from 'react'
 
 // 공급자

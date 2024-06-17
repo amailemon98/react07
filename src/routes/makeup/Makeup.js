@@ -1,10 +1,10 @@
 import React from 'react'
-import { useMakeupContext } from '../context/MakeupContextReducer'
+import { useMakeupContext } from '../context/MakeupContext'
 import Card from '../components/Card/Card'
 import { Link, useNavigate} from 'react-router-dom'
 
 const Makeup = () => {
-    const {state, result, setSearchParams, queryParamsResult} = useMakeupContext()
+    const {isPending, result, setSearchParams, queryParamsResult} = useMakeupContext()
     // const result = !isPending && makeup.map(item => <Card key={item.id} />)
     const navigate = useNavigate();
   
@@ -26,7 +26,7 @@ const Makeup = () => {
         </div>
         <div className='card-container'>
           {
-              state.loading ? "Loading..." : queryParamsResult
+              isPending ? "Loading..." : queryParamsResult
           }
         </div>
     </div>
